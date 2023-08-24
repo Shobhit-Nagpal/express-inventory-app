@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #[em ExInvent], a very basic Express site to practice backend.
+
+    h1 Dynamic content
+
+    p Inventory has following records:
+
+    ul
+        li #[strong Items:] !{item_count}
+        li #[strong Categories:] !{category_count}

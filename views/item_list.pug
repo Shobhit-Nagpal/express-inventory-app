@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1= title
+
+    ul
+        each item in items
+            br
+            li
+                a(href=item.url) #{item.name}
+                p #[strong Price:] $#{item.price}
+                p #[strong In stock:] #{item.number_in_stock}  
+                p #[strong Category:]
+                each val, index in item.category
+                    a(href=val.url) #{val.name}
+                    if index < item.category.length - 1
+                        |, 
+        else
+            li There are no items
