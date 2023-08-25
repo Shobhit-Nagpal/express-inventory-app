@@ -3,12 +3,33 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
 require('dotenv').config();
 
+const RateLimit = require('express-rate-limit');
+const limiter = RateLimit({ 
+    windowsMs: 1 * 60 * 1000, // 1 minute
+    max: 20
+});
 var indexRouter = require('./routes/index');
 var catalogRouter = require("./routes/catalog");
 
 var app = express();
+
+app.use(limiter);
+
+app.use(compression());
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+        },
+    }),
+);
+
+
 
 //Database connection
 const mongoose = require("mongoose");
